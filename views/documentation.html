@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Documentation - {{ title }}</title>
+        <script src="/js/color-modes.js" ></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+        
+        <style>
+            h1, h2, h3, h4, h5, h6 {
+                padding:5px;
+            }
+            h6{
+                background-color: #1e1e1e;
+            }
+            p{
+                padding-left:10px;
+            }
+
+            .searchInside{
+              float: right;
+              width: 200px;
+              padding: 5px;
+            }
+
+            
+
+        </style>
+    </head>
+    <body>
+        <main>
+            <div class="container py-4">
+              <header class="pb-3 mb-4 border-bottom">
+                <a href="/documentation" class="align-items-center text-body-emphasis text-decoration-none">
+                  <span class="fs-4">Tiki PHPFW - Documentation</span>
+                </a>
+                <input type="text" id="searchInside" class="searchInside" placeholder="Search..."/>
+              </header>
+          
+              <div class="p-5 mb-4 bg-body-tertiary rounded-3">
+                <div class="container-fluid py-5">
+                  <h1 class="display-5 fw-bold text-danger">Tiki PHPFW</h1>
+                  <p class="col-md-8 fs-4">How & why the h*ck I made this framework</p>
+                  
+                </div>
+              </div>
+          
+              <div class="row align-items-md-stretch border-bottom">
+                <div class="col-md-12">
+                  <div class="h-100 p-5 text-bg-dark rounded-3">
+                    <h2 class="text-danger">Why</h2>
+                    <p>I decided to take challenge of a side project in one week (2024-08-(15->21)), and make a Framework. Many years ago I did an old fashioned mini framewok, so I wanted to test my skills again, but this time whit the knowledge and triks of the trade of and old fart php developer.</p>
+                    
+                  </div>
+                </div>
+              </div>
+          
+              <div class="row align-items-md-stretch border-bottom">
+                <div class="col-md-12">
+                  <div class="h-100 p-5 text-bg-dark rounded-3">
+                    <h2 class="text-danger">Description</h2>
+
+                    <p>As the title said, Tiki is a simple and fast framework. It includes:</p>
+                    <ul style="list-style:square;">
+                        <li>register and login ready to use.</li>
+                        <li>template for the dashboard based on bootsrap.</li>
+                        <li>i18n translation manager</li>
+                        <li>simple but handy ORM (MySQL & MariaDB)</li>
+                        <li>automatic validation in php and js</li>
+                        <li>CSRF</li>
+                        <li>Twig as the template engine</li>
+                        <li>html and json ready views</li>
+                        <li>Logger</li>
+                        <li>Pdf generator</li>
+                        <li>installation script</li>
+                        <li>[...]</li>
+                        
+
+                    </ul>
+                        
+                  </div>
+                </div>
+              </div>
+
+              <div class="row align-items-md-stretch border-bottom">
+                <div class="col-md-12">
+                  <div class="h-100 p-5 text-bg-dark rounded-3">
+                    <h2 class="text-danger">Installation</h2>
+
+                    <h5 class="text-bg-danger">1 download</h5>
+
+                        <p>First of all you need to download the <a href="">code from github</a> and copy to your server</p>
+
+                    <h5 class="text-bg-danger">2 Env file</h5>
+
+                        <p>Create a .env file on the root of the project (you have a .env.example in the same folder) and complete the data</p>
+
+                        <pre><code class="language-ini">APP_NAME="Tiki PHPFW"
+APP_DESC="a simple and fast PHP framework."
+ENVIRONMENT="dev"
+APP_URL="http://example.com/"
+
+DB="mysql"
+MYSQL_HOST="127.0.0.1"
+MYSQL_USERNAME="root"
+MYSQL_PASSWORD="password"
+MYSQL_SCHEMA="schema"
+MYSQL_PORT="3306"
+
+
+MAIL_EXCEPTIONS="true"
+MAIL_HOST="tls://smtp.example.com:587"
+MAIL_SMTP_AUTH="true"
+MAIL_USERNAME="email@example.com"
+MAIL_PASSWORD="password"
+SMTP="true"</code></pre>
+
+                        <p>If you let the MYSQL_SCHEMA empty the installer will create a "tiki-fw" schema for you.</p>
+
+
+
+                        <h5 class="text-bg-danger">3 composer</h5>
+
+                        <p>on the root of the project install dependencies via <a class="text-danger-emphasis" href="https://getcomposer.org/" target="_blank">composer</a></p>
+
+                        <pre><code class="language-bash">composer install</code></pre>
+                        
+                        <h5 class="text-bg-danger">4 Install script</h5>
+
+                        <p>launch the install.php script to create the schema (if needed), the user tables, and the storage folders</p>
+                        <pre><code class="language-bash">php install.php</code></pre>
+
+                        
+
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="row align-items-md-stretch border-bottom">
+                <div class="col-md-12">
+                  <div class="h-100 p-5 text-bg-dark rounded-3">
+                    <h2 class="text-danger">Routes</h2>
+
+                    <p>Create a new route for your site is easy. In the /routes/main.php you have all that you need.</p>
+                    
+                    <pre><code class="language-php">$routes = [
+
+    "/" => ["Main", "index"],
+    "/documentation" => ["Main", "documentation"],
+    "/testmail" => ["Auth", "testMail"],
+    "/register" => ["Auth", "register"],
+    "/login" => ["Auth", "index"],
+    "/logout" => ["Auth", "logout", ["auth"]],
+    "/dashboard" => ["Dashboard", "index", ["auth"]],
+
+    "/layout-static" => ["Dashboard", "layoutStatic", ["auth"]],
+    "/layout-sidenav-light" => ["Dashboard", "layoutSidenavLight", ["auth"]],
+    "/charts" => ["Dashboard", "charts", ["auth"]],
+    "/tables" => ["Dashboard", "tables", ["auth"]]
+                    
+];</code></pre>
+
+                    <p>A new route is made with the new url you want to create "/test", then an array where the first parameter is the Controller, the second one is the method, and the third one is an optional array of middlewares. If you leave the middlewares empty or unset, the framework assumes that is a public page.</p>
+
+                    <pre><code class="language-php">"/test" => ["Main", "test"],</code></pre>
+
+                    
+
+                  </div>
+                </div>
+              </div>
+
+              <div class="row align-items-md-stretch border-bottom">
+                <div class="col-md-12">
+                  <div class="h-100 p-5 text-bg-dark rounded-3">
+                    <h2 class="text-danger">Controllers</h2>
+
+                    <h5 class="text-bg-danger">The controller</h5>
+
+                        <p>The controllers extend <span class="text-danger-emphasis">Controller</span>, with the basic methods needed</p>
+
+                        <h6 class="text-danger">getView($view, $args = [], $return_html = false)</h6>
+
+                        <p>With the static <span class="text-danger-emphasis">Controller::getView()</span> method you generate the view with the template (name of the file without extension), send the args needed for replacement and serves it to the user. If you want the html returned to generate a pdf for example, simply set return_html to true</p>
+
+                        <p>I've added <a class="text-danger-emphasis" href="https://twig.symfony.com/">Twig</a> as a template engine, simply because I'm very used to Blade (Laravel) and I wanted to use something different</p>
+
+                        <pre><code class="language-php">$this->getView("documentation", []);
+$this->getView("documentation", ["textuser"=>$user->name]);
+$this->getView("documentation", ["textuser"=>$user->name], true);
+                        </code></pre>
+
+                        <h6 class="text-danger">sendJson($obj)</h6>
+                        
+                        <p>with the static <span class="text-danger-emphasis">Controller::sendJson()</span> you can send an object or array and serve it with the proper encoding and header type. It tries to check if the <span class="text-danger-emphasis">$obj</span> is a proper object or array instead of an already json string and serve it without reencoding.</p>
+
+                        <h6 class="text-danger">Example</h6>
+
+                        <pre><code class="language-php">public function documentation(){
+    /* your code here */
+    $this->getView("documentation", []);
+
+}</code></pre>
+
+                        <h6 class="text-danger">Data request</h6>
+
+                        <p>With the static methods of <span class="text-danger-emphasis">Http</span> you can get a specific field <span class="text-danger-emphasis">Http::getQuery($id)</span> or all the request with <span class="text-danger-emphasis">Http::getAllQuery()</span></p>
+
+                        <pre><code class="language-php">$name = Http::getQuery("name");</code></pre>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="row align-items-md-stretch border-bottom">
+                <div class="col-md-12">
+                  <div class="h-100 p-5 text-bg-dark rounded-3">
+                    <h2 class="text-danger">Middleware</h2>
+
+                    
+
+                    <p>As commented in the Routes section the middlewares are set on the routes file for every route</p>
+
+                    <p>Inside config/middlewares you configure every group of middlewares and values if needed.</p>
+
+
+                    <pre><code class="language-php">$mids = [
+    "web" => ["AuthMiddleware"=>["access" => false], "CSRFMiddleware"=>[]],
+    "auth" => ["AuthMiddleware"=>["access" => true], "CSRFMiddleware"=>[]],
+    
+];</code></pre>
+
+                   
+
+
+                        
+
+                  </div>
+                </div>
+              </div>
+
+
+
+              <div class="row align-items-md-stretch border-bottom">
+                <div class="col-md-12">
+                  <div class="h-100 p-5 text-bg-dark rounded-3">
+                    <h2 class="text-danger">DB and Model</h2>
+
+                    <h5 class="text-bg-danger">DB</h5>
+
+                        <p>You have access all arround the framework to the already initalized <span class="text-danger-emphasis">DB</span> object with the connector to the database, so you can make the querys you need.</p>
+
+                    <h5 class="text-bg-danger">Model (ORM)</h5>
+
+                        <p>The ORM takes the definition of the tables in order to generate the Model. The primary id will be the primary index, the autogenerated fields wont be in the getters and setters etc.</p>
+
+                        <p>Models are super simplified. The Model parent class only needs the name of the table and it set a bunch of handy methods for you.</p>
+
+                        <pre><code class="language-php">class Car extends Model{
+        
+    protected $table = "cars";
+    protected static $tables = "cars"; //for static methods
+
+}
+    
+</code></pre>
+
+                        <p>You only need to create the specific methods you'll need outside the box.</p>
+
+                        <h6 class="text-danger">Getters and Setters</h6>
+
+                        <p>The getters and setters are automated by definition of the table. with <span class="text-danger-emphasis">$OBJ->Propery</span> you can set or get any field of the table (you cannot set autogenerated fields).</p>
+
+
+                        <h6 class="text-danger">Save and Delete</h6>
+
+                        <p><span class="text-danger-emphasis">$OBJ->save()</span> will <a class="text-danger-emphasis" href="#" data-bs-toggle="tooltip" data-bs-title="Insert or Update">upsert</a> the object into the database</p>
+
+                        <p><span class="text-danger-emphasis">$OBJ->delete()</span> will delete the object from the database</p>
+
+                        <pre><code class="language-php">$car = new Car();
+$car->weels = 4;
+$car->model = "Ford T";                            
+$car->save();
+</code></pre>
+                            
+                        <h6 class="text-danger">User::get($id)</h6>
+
+                        <p>With the static method get you can retrieve an object using its primary index</p>
+
+                        <pre><code class="language-php">$car = User::get("1d28e937-153b-4a1b-802a-73ffb9aaf8a8")</code></pre>
+                       
+                        <h6 class="text-danger">getWhere($argv, $limit = null, $order = null)</h6>
+
+                        <p><span class="text-danger-emphasis">getWhere</span> is a static method you can use with querys of mid complexity.</p>
+
+                        <p>The <span class="text-danger-emphasis">$argv</span> is an array of querys that you can chain.</p>
+                        
+                        <pre><code class="language-php">$user = User::getWhere([["name =", $name], ["lastname like", $like, "and"], ["email = ", $email, "or"]], 10, "ASC");
+
+// you will get the corresponding values as SELECT * FROM users WHERE name = $name AND lastname like $Like OR email = $email LIMIT 10 ORDER ASC
+                            </code></pre>
+                        
+                        <p>For more complex queries please feel free to use <span class="text-danger-emphasis">DB</span> and make your own.</p>
+
+                        
+
+                        
+
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="row align-items-md-stretch border-bottom">
+                <div class="col-md-12">
+                  <div class="h-100 p-5 text-bg-dark rounded-3">
+                    <h2 class="text-danger">i18n Translations</h2>
+
+                    <h5 class="text-bg-danger">i18n</h5>
+
+                        <p>Translate all your site with the i18n engine.</p>
+
+                    <h5 class="text-bg-danger">Translations</h5>
+
+                        <p>The translations are stored in json files in the i18n folder, one for every language you need to translate. You can group the translations on sub sections.</p>
+
+                        <pre><code class="language-json">{
+
+    "validations": {
+        "required" : "mandatory field",
+        "repassword": "passwords don't match",
+        "password": "10 chars at least 1 number 1 lowercase and 1 uppercase",
+        "email": "invalid email format"
+    },
+    "hello": "Welcome %s!"
+
+}</code></pre>
+
+                        <h6 class="text-danger">i18n::key($args) or i18n::section_key($args)</h6>
+
+                        <p>With the magic static methods of i18n you can get the translations and format with vsprintf.</p>
+
+                        <p>And access the "sections" of the json file with underscore "_"</p>
+
+                        <pre><code class="language-php">echo i18n::hello("John Connor"); // Welcome John Connor
+echo i18n::validations_email(); // invalid email format                             
+</code></pre>
+
+                        <p>The system automatically gets the language from ordered sources and has a fallback</p>
+                        
+                        <ul style="list-style: decimal;">
+                            <li>$_GET['l']</li>
+                            <li>$_SESSION['l']</li>
+                            <li>$_SERVER['HTTP_ACCEPT_LANGUAGE']</li>
+                            <li>fallback</li>
+                        </ul>
+
+                        <p>You can change the fallback language (default "en") and the <a class="text-danger-emphasis" href="#" data-bs-toggle="tooltip" data-bs-title='false = use the standard ITEF 2/3 letter "en" "es" "yue"  [recomended] or true = use the ITEF variants (5-n letters) "en-US" "es-MX" "yue-Hant-HK"'>langVariants</a> (default false) on the config/main.php file</p>
+
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="row align-items-md-stretch border-bottom">
+                <div class="col-md-12">
+                  <div class="h-100 p-5 text-bg-dark rounded-3">
+                    <h2 class="text-danger">Logger</h2>
+
+                    <h5 class="text-bg-danger">log</h5>
+
+                        <p>Make entries in storage/log/tiki.log with a simple static function <span class="text-danger-emphasis">Logger::log($type, $message)</span> where type could be <span class="text-danger-emphasis">Logger::LOG, Logger::WARNING</span> or <span class="text-danger-emphasis">Logger::ERROR</span></p>
+
+                        <p><span class="text-danger-emphasis">$message</span> could be a string or an object (will be encoded in json)</p>
+
+                        <pre><code class="language-php">Logger::log(Logger::WARNING, "this is a plain text test log");</code></pre>
+                        <pre><code class="language-ini">[2024-08-18 19:45:17] |WARNING| this is a plain text test log</code></pre>
+
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="row align-items-md-stretch border-bottom">
+                <div class="col-md-12">
+                  <div class="h-100 p-5 text-bg-dark rounded-3">
+                    <h2 class="text-danger">Validations</h2>
+
+                    <h5 class="text-bg-danger">PHP</h5>
+
+                        <p>with the static function <span class="text-danger-emphasis">Validator::test($fields, $query);</span> you can validate the typical form fields: required, email, password, repeat password...</p>
+
+                        <p>To use it <span class="text-danger-emphasis">$fields</span> needs to be a description array with the names of the form fields as keys and the validators as values</p>
+
+                        <pre><code class="language-php">$query = Http::getAllQuery();
+
+$fields = [
+    "name" => ["required"], 
+    "last_name" => ["required"], 
+    "email"=>["required", "email"], 
+    "password"=>["required", "password","repassword"], 
+    "re_password"=>["required", "repassword"]
+];
+
+$error = Validator::test($fields, $query);</code></pre>
+
+
+                        <p>You can see a working example in Auth Register.</p>
+
+                        <h5 class="text-bg-danger">Javascript</h5>
+
+                        <p>But a validation is not complete without a js validation. This is automated too using data-validate in every input you need to validate and setting the validations</p>
+
+                        <p>and of course including the /js/validation.js file on your template.</p>
+
+                        <pre><code class="language-html">&lt;span class="form_error_msg"&gt;{{ error.name }}&lt;/span&gt; &lt;!-- this is used for the php validation --&gt;
+&lt;input class="form-control {&percnt; if error_class.name &percnt;}bg-error{&percnt; endif &percnt;}" name="name" type="text" data-validate="required" required /&gt;
+</code></pre>
+
+
+                        <h5 class="text-bg-danger">CSRF</h5>
+                        
+                        <p>The framework has a CSRF protocol too, as a middleware. It's automatic, you dont need to do anything. The system searches for every form and inserts the csrf token and validates it.</p>
+                        
+
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="row align-items-md-stretch border-bottom">
+                <div class="col-md-12">
+                  <div class="h-100 p-5 text-bg-dark rounded-3">
+                    <h2 class="text-danger">External Libraries</h2>
+
+                        <h5 class="text-bg-danger">Mail - PHPMailer</h5>
+
+                        <p>Mail implements the classic, simple and robust <a class="text-danger-emphasis" href="https://github.com/PHPMailer/PHPMailer" target="_blank">PHPMailer</a> tool for sending mails.</p>
+
+                        <h5 class="text-bg-danger">Pdf - Dompdf</h5>
+
+                        <p>Pdf implements <a class="text-danger-emphasis" href="https://github.com/dompdf/dompdf" target="_blank">Dompdf</a> a simple yet fast and reliable html to pdf system</p>
+
+                  </div>
+                </div>
+              </div>
+
+
+
+              <footer class="pt-3 mt-4 text-body-secondary border-top">
+                &copy; {{ title }} 2024
+              </footer>
+            </div>
+          </main>
+          
+          <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+          <script>
+            hljs.highlightAll();
+            const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+            const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+        </script>
+        <script src="/js/search.js" ></script>
+    </body>
+</html>

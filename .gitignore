@@ -1,0 +1,6 @@
+**/vendor
+**/twigcache
+**/storage
+composer.phar
+composer.lock
+.env

@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap');
+
+body {
+    font-family: 'Fjalla One';
+  
+  user-select: none;
+  margin: 0px;
+  transform-origin: left top;
+  background-color: #212529;
+    
+    color: white;
+    background: url(/img/bg1.jpg);
+    background-size: 16px;
+}
+
+.header a{
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+    margin: 10px;
+    display: inline-flex;
+    background-color: #42474b;
+    border-radius: 5px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.header a:hover{
+    background-color: #505558;
+    cursor: pointer;
+}
+
+#viewport{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+.center{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#title{
+    float:left;
+    text-align: center;
+    width: 70%;
+    text-shadow: 2px 2px 3px black;
+    font-size: 39px;
+}
+
+#tiki{
+    font-size: 123px;
+    color: #af0000;
+}
+
+#logo{
+    float:left;
+    aspect-ratio: 1;
+    width: 200px;
+    background: url(../img/logo.png);
+    background-size: cover;
+    
+}
+
+#footer{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: right;
+    height: 10vh;
+    font-size: 3vh;
+}
+
+#privacy{
+    float:right;
+    padding: 1vh;
+}
+
+#playstore{
+    height: 3vh;
+    aspect-ratio: 200/50;
+    float:right;
+    padding: 1vh;
+    
+}
+
+.header{
+
+    text-align: right;
+    position:absolute;
+    top: 0;
+    width: 100%;
+    height: 50px;
+    background-color: #32373b8c;
+
+}
+.small_ch{
+    font-size: 14px;
+}

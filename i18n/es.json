@@ -1,0 +1,10 @@
+{
+
+    "validations": {
+        "required" : "campo obligatorio",
+        "repassword": "las contraseñas no coinciden",
+        "password": "min. 10 caracteres 1 número, 1 mínuscula y 1 mayúscula",
+        "email": "formato de email incorrecto"
+    }
+
+}
