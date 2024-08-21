@@ -10,6 +10,8 @@ $routes = [
     "/logout" => ["Auth", "logout", ["auth"]],
     "/dashboard" => ["Dashboard", "index", ["auth"]],
     "/charts" => ["Dashboard", "charts", ["auth"]],
-    "/tables" => ["Dashboard", "tables", ["auth"]]
+    "/tables" => ["Dashboard", "tables", ["auth"]],
+
+    "/testmail" => ["Auth", "testmail"]
 
 ];

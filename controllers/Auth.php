@@ -123,6 +123,16 @@ class Auth extends Controller{
 
     }
 
+    public function testmail(){
+
+        $user = User::get("1d28e937-153b-4a1b-802a-73ffb9aaf8a8");
+
+        MyMail::welcomeMail($user);
+
+
+
+    }
+
     
 
 }

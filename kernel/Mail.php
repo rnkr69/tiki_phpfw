@@ -12,14 +12,14 @@ class Mail extends PHPMailer{
         //Don't forget to do this or other things may not be set correctly!
         parent::__construct(ENV("MAIL_EXCEPTIONS"));
         //Set a default 'From' address
-        $this->setFrom(ENV("MAIL_USERNAME"));
+        $this->setFrom(ENV("MAIl_FROM"));
         if(ENV("SMTP")){
             //Send via SMTP
             $this->isSMTP();
             //Equivalent to setting `Host`, `Port` and `SMTPSecure` all at once
             $this->Host = ENV("MAIL_HOST");
         }
-        if(ENV("SMTP_AUTH")){
+        if(ENV("MAIL_SMTP_AUTH")){
             //Send via SMTP
             $this->isSMTP();
             //Equivalent to setting `Host`, `Port` and `SMTPSecure` all at once
@@ -45,7 +45,7 @@ class Mail extends PHPMailer{
         //Set an HTML and plain-text body, import relative image references
         $this->msgHTML($body, './images/');
 
-        if(ENV("ENVIRONMENT") == "dev"){
+        if(ENV("ENVIRONMENT") == "dev" && ENV("MAIL_DEBUG")){
             //Show debug output
             $this->SMTPDebug = SMTP::DEBUG_SERVER;
             //Inject a new debug output handler
