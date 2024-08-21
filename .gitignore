@@ -4,3 +4,4 @@
 composer.phar
 composer.lock
 .env
+tiki_phpfw.code-workspace
