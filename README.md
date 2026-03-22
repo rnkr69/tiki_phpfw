@@ -1,116 +1,118 @@
 # Tiki PHPFW
 
-Framework PHP minimalista para aplicaciones web con enrutado simple, controladores, modelos sobre MySQL (mysqli), vistas con **Twig**, middleware básico (autenticación y CSRF), validación, i18n por JSON y utilidades de correo (PHPMailer) y PDF (Dompdf). 
+A minimal PHP framework for web apps with simple routing, controllers, MySQL (mysqli) models, **Twig** views, basic middleware (authentication and CSRF), validation, JSON-based i18n, and mail (PHPMailer) and PDF (Dompdf) helpers.
 
-Creado como proyecto personal desde cero intentando poner a prueba mis conocimientos sobre frameworks. Usando 0 IA para su creación.
+Built from scratch as a personal project to put framework concepts into practice, without using AI in its creation.
 
-## Requisitos
+## Requirements
 
-- PHP 8.0 o superior (recomendado 8.1+)
-- Extensión **mysqli**
+- PHP 8.0 or newer (8.1+ recommended)
+- **mysqli** extension
 - **Composer**
-- Servidor web con document root apuntando a la carpeta `public/` (o equivalente en desarrollo)
-- MySQL / MariaDB
+- A web server whose document root points at the `public/` directory (or equivalent for local dev)
+- MySQL or MariaDB
 
-## Instalación
+## Installation
 
-1. **Clonar o copiar** el proyecto en tu entorno (por ejemplo la carpeta de WAMP/XAMPP o tu vhost).
+1. **Clone or copy** the project into your environment (e.g. WAMP/XAMPP folder or your vhost).
 
-2. **Instalar dependencias:**
+2. **Install dependencies:**
 
    ```bash
    composer install
    ```
 
-3. **Configurar entorno:** copia `.env.example` a `.env` y ajusta valores (aplicación, base de datos y correo si usas envíos):
+3. **Environment:** copy `.env.example` to `.env` and adjust values (app, database, and mail if you send email):
 
    ```bash
-   copy .env.example .env
+   cp .env.example .env
    ```
 
-   Edita al menos `APP_URL`, `MYSQL_*` y, si aplica, las variables `MAIL_*`.
+   On Windows (cmd/PowerShell) you can use `copy .env.example .env` instead.
 
-4. **Crear la base de datos:** el esquema debe coincidir con `MYSQL_SCHEMA` en `.env`. Si la base aún no existe, el script de instalación puede crearla (ver siguiente paso).
+   Set at least `APP_URL`, `MYSQL_*`, and if needed the `MAIL_*` variables.
 
-5. **Ejecutar el instalador** desde la raíz del proyecto (por consola, en el directorio del framework):
+4. **Database:** the schema name must match `MYSQL_SCHEMA` in `.env`. If the database does not exist yet, the install script can create it (see next step).
+
+5. **Run the installer** from the project root:
 
    ```bash
    php install.php
    ```
 
-   Este script:
+   This script:
 
-   - Ejecuta las migraciones SQL definidas en `database/migrations/`.
-   - Si MySQL devuelve error “base de datos desconocida”, intenta crear el esquema usando `database/generate/schema.php` (nombre según `MYSQL_SCHEMA`) y vuelve a aplicar migraciones.
-   - Crea las carpetas `storage/`, `storage/logs`, `storage/pdf` y `storage/twigcache` si no existen.
+   - Runs SQL migrations under `database/migrations/`.
+   - If MySQL reports an “unknown database” error, it tries to create the schema via `database/generate/schema.php` (using the name from `MYSQL_SCHEMA`) and then runs migrations again.
+   - Creates `storage/`, `storage/logs`, `storage/pdf`, and `storage/twigcache` if they are missing.
 
-6. **Servidor web:** la URL pública debe servir **`public/index.php`** como front controller. Ejemplo con el servidor integrado de PHP:
+6. **Web server:** the public URL should use **`public/index.php`** as the front controller. Example with PHP’s built-in server:
 
    ```bash
    php -S localhost:8080 -t public
    ```
 
-   En WAMP, configura un virtual host con `DocumentRoot` apuntando a `.../tiki_phpfw/public`.
+   On WAMP, point the virtual host `DocumentRoot` at `.../tiki_phpfw/public`.
 
-## Cómo usarlo (resumen)
+## Usage (overview)
 
-### Rutas
+### Routes
 
-Las URLs se definen en `routes/main.php` como array asociativo: path → `[Controlador, método, [middlewares opcionales]]`.
+URLs are defined in `routes/main.php` as an associative array: path → `[Controller, method, [optional middleware group]]`.
 
 ```php
 $routes = [
-    "/contacto" => ["Main", "contacto"],
-    "/admin"    => ["Dashboard", "panel", ["auth"]],
+    "/contact" => ["Main", "contact"],
+    "/admin"   => ["Dashboard", "panel", ["auth"]],
 ];
 ```
 
-- Sin tercer elemento se usa el grupo por defecto de `config/main.php` (`middleware` → normalmente `web`).
-- Con `["auth"]` se aplica el stack definido en `config/middlewares.php` (por ejemplo sesión obligatoria).
+- If the third element is omitted, the default group from `config/main.php` is used (`middleware` → usually `web`).
+- With `["auth"]`, the stack from `config/middlewares.php` applies (e.g. session required).
 
-### Controladores
+### Controllers
 
-Archivos PHP en `controllers/`; el nombre de la clase debe coincidir con el nombre del fichero (sin `.php`). Los métodos son acciones invocadas por la ruta. Para vistas HTML se suele llamar a `Controller::getView('nombre_vista', $datos)` o, si la clase extiende `Controller`, `$this->getView(...)`.
+PHP files in `controllers/`; the class name must match the file name (without `.php`). Methods are actions invoked by the route. For HTML views, call `Controller::getView('view_name', $data)` or, if the class extends `Controller`, `$this->getView(...)`.
 
-### Vistas
+### Views
 
-Plantillas **Twig** en `views/` (`*.html`). En producción (`ENVIRONMENT=prod` en `.env`) Twig puede usar caché en `storage/twigcache`.
+**Twig** templates in `views/` (`*.html`). In production (`ENVIRONMENT=prod` in `.env`), Twig can cache templates in `storage/twigcache`.
 
-### Modelos
+### Models
 
-Clases en `model/` que extienden `Model`. Cada modelo apunta a una tabla (`$table` / `$tables`) y puede usar `save()`, `delete()`, `Model::get($id)`, `Model::getWhere(...)` según la descripción en `database/descriptions/` (generada a partir de la tabla).
+Classes in `model/` extending `Model`. Each model targets a table (`$table` / `$tables`) and can use `save()`, `delete()`, `Model::get($id)`, `Model::getWhere(...)`, guided by metadata in `database/descriptions/` (generated from the table structure).
 
-### Configuración de aplicación
+### Application configuration
 
-Valores generales en `config/main.php`. Middlewares nombrados en `config/middlewares.php`.
+General values in `config/main.php`. Named middleware stacks in `config/middlewares.php`.
 
-### Internacionalización
+### Internationalization
 
-Ficheros JSON en `i18n/` (por ejemplo `es.json`, `en.json`). La clase `i18n` expone métodos estáticos según las claves del JSON; el idioma por defecto y variantes se configuran en `config/main.php` (`i18n_fallback`, `i18n_langVariants`).
+JSON files in `i18n/` (e.g. `es.json`, `en.json`). The `i18n` class exposes static methods based on JSON keys; default language and variants are set in `config/main.php` (`i18n_fallback`, `i18n_langVariants`).
 
-### Respuestas JSON
+### JSON responses
 
-Desde un controlador puedes usar `Controller::sendJson($data)` para devolver JSON.
+From a controller you can use `Controller::sendJson($data)` to return JSON.
 
 ---
 
-Para una guía más visual y ejemplos adicionales, con la app en marcha visita la ruta **`/documentation`** (página incluida en el proyecto).
+For a more visual guide and extra examples, run the app and open **`/documentation`** (included in the project).
 
-## Estructura principal
+## Project layout
 
-| Ruta / carpeta        | Rol |
-|-----------------------|-----|
-| `public/index.php`    | Punto de entrada HTTP |
-| `kernel/`             | Router, DB, HTTP, Twig, validación, etc. |
-| `controllers/`        | Controladores |
-| `model/`              | Modelos |
-| `views/`              | Plantillas Twig |
-| `middleware/`         | Middlewares |
-| `routes/main.php`     | Tabla de rutas |
-| `config/`             | Configuración y grupos de middleware |
-| `database/migrations/`| SQL de migraciones |
-| `storage/`            | Logs, caché Twig, PDFs generados |
+| Path / folder          | Purpose |
+|------------------------|---------|
+| `public/index.php`     | HTTP entry point |
+| `kernel/`              | Router, DB, HTTP, Twig, validation, etc. |
+| `controllers/`         | Controllers |
+| `model/`               | Models |
+| `views/`               | Twig templates |
+| `middleware/`          | Middleware classes |
+| `routes/main.php`      | Route table |
+| `config/`              | App config and middleware groups |
+| `database/migrations/` | SQL migrations |
+| `storage/`             | Logs, Twig cache, generated PDFs |
 
-## Licencia
+## License
 
-Este proyecto está publicado bajo la **Licencia MIT**. Consulta el archivo [`LICENSE`](LICENSE) para el texto legal completo.
+This project is released under the **MIT License**. See [`LICENSE`](LICENSE) for the full legal text.
