@@ -1,4 +1,7 @@
 {
+    "name": "tiki/phpfw",
+    "description": "Minimal PHP web framework with Twig, mysqli models, and middleware.",
+    "license": "MIT",
     "require": {
         "twig/twig": "^3.0",
         "phpmailer/phpmailer": "^6.9",
