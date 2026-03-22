@@ -68,7 +68,7 @@ class Auth extends Controller{
             
 
             if(empty($error)){
-                User::getByEmail($query['email']);
+                $u = User::getByEmail($query['email']);
                 if($u == null){
 
                     try{
@@ -76,7 +76,7 @@ class Auth extends Controller{
                         $user->name = trim($query["name"]);
                         $user->last_name = trim($query["last_name"]);
                         $user->email = trim($query["email"]);
-                        $user->password = sha1(trim($query["password"]));
+                        $user->setPassword(trim($query["password"]));
                         $user->save();
 
                         
@@ -122,17 +122,5 @@ class Auth extends Controller{
         Router::redirect("/");
 
     }
-
-    public function testmail(){
-
-        $user = User::get("1d28e937-153b-4a1b-802a-73ffb9aaf8a8");
-
-        MyMail::welcomeMail($user);
-
-
-
-    }
-
-    
 
 }

@@ -10,7 +10,7 @@ class User extends Model{
 
     public function setPassword($pwd){
 
-        $this->password = SHA1($pwd);
+        $this->password = password_hash($pwd, PASSWORD_DEFAULT);
 
     }
 
@@ -44,18 +44,25 @@ class User extends Model{
         $user = self::getWhere([["email = ", $email]]);
         if(!empty($user)){
             $user = $user[0];
-            if($user->password == SHA1($pwd)){
+            $hash = $user->password;
 
+            if (is_string($hash) && password_verify($pwd, $hash)) {
                 $_SESSION['uid'] = $user->user_id;
-            
                 return true;
-
-            } else {
-                return false;
             }
-        } else {
+
+            if (is_string($hash) && strlen($hash) === 40 && ctype_xdigit($hash)
+                && hash_equals($hash, sha1($pwd))) {
+                $user->setPassword($pwd);
+                $user->save();
+                $_SESSION['uid'] = $user->user_id;
+                return true;
+            }
+
             return false;
         }
+
+        return false;
 
     }
 

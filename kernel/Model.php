@@ -157,8 +157,9 @@ class Model {
                     }
                 }
             }
-            $values[] = $this->{$this->_id};
-            $types .= "s";
+            $uniqueval = $this->{$this->_id};
+            $values[] = $uniqueval;
+            $types .= is_string($uniqueval) ? "s" : "i";
             $stmt = DB::conn()->link->prepare($sql);
             $stmt->bind_param($types, ...$values);
             $stmt->execute();
@@ -182,15 +183,14 @@ class Model {
         $result = $stmt->get_result();
         $row = $result->fetch_assoc();
 
-        $return = null;
-
+        if ($row === null) {
+            return null;
+        }
 
         $childClass = static::class;
-        foreach ($result as $row) {
-            $return = new $childClass;
-            foreach($row as $var => $val){
-                $return->$var = $val;
-            }
+        $return = new $childClass;
+        foreach ($row as $var => $val) {
+            $return->$var = $val;
         }
 
         return $return;
@@ -216,10 +216,25 @@ class Model {
             }
         }
         if($order !== null){
+            $order = trim((string) $order);
+            if (!preg_match(
+                '/^[a-zA-Z_][a-zA-Z0-9_]*(\s+(ASC|DESC))?(\s*,\s*[a-zA-Z_][a-zA-Z0-9_]*(\s+(ASC|DESC))?)*$/i',
+                $order
+            )) {
+                throw new InvalidArgumentException('Invalid ORDER BY clause');
+            }
             $sql .= " ORDER BY ".$order;
         }
         if($limit !== null){
-            $sql .= " LIMIT ".$limit;
+            if (is_int($limit)) {
+                $sql .= " LIMIT ".$limit;
+            } elseif (is_string($limit) && preg_match('/^\d+$/', $limit)) {
+                $sql .= " LIMIT ".(int) $limit;
+            } elseif (is_string($limit) && preg_match('/^(\d+)\s*,\s*(\d+)$/', $limit, $m)) {
+                $sql .= " LIMIT ".(int) $m[1].",".(int) $m[2];
+            } else {
+                throw new InvalidArgumentException('Invalid LIMIT clause');
+            }
 
         }
 
@@ -227,13 +242,12 @@ class Model {
         $stmt->bind_param($types, ...$values);
         $stmt->execute();
         $result = $stmt->get_result();
-        $row = $result->fetch_assoc();
 
         $return = [];
         $childClass = static::class;
-        foreach ($result as $row) {
+        while ($row = $result->fetch_assoc()) {
             $ret = new $childClass;
-            foreach($row as $var => $val){
+            foreach ($row as $var => $val) {
                 $ret->$var = $val;
             }
             $return[] = $ret;

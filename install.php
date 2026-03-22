@@ -65,7 +65,7 @@ switch(ENV("DB")){
                     ENV("MYSQL_HOST"),
                     ENV("MYSQL_USERNAME"),
                     ENV("MYSQL_PASSWORD"),
-                    "tiki_fw",
+                    ENV("MYSQL_SCHEMA"),
                     ENV("MYSQL_PORT")
                 );
             
